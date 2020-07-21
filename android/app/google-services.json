@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "801985932225",
+    "firebase_url": "https://qatarapp-48d6c.firebaseio.com",
+    "project_id": "qatarapp-48d6c",
+    "storage_bucket": "qatarapp-48d6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801985932225:android:f69c43fecf65f2afe0dd40",
+        "android_client_info": {
+          "package_name": "com.example.qatar_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801985932225-9kobk4o8mqm3jno84pm2rkn6g4ubekpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrqGSFKGxh85MWy68nd4e5HM_dO1dPP04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801985932225-9kobk4o8mqm3jno84pm2rkn6g4ubekpb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
