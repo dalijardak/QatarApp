@@ -31,8 +31,17 @@ class _RequestState extends State<Request> {
   _dateDiff() {
     var dateNow = new DateTime.now();
     var dateThen = DateTime.parse(this.widget.date);
-    var duration = dateNow.difference(dateThen).inMinutes;
-    return duration.toString();
+    var duration = dateNow.difference(dateThen);
+    if (duration.inSeconds < 60)
+      return duration.inSeconds.toString() + " seconds ";
+    else if (duration.inMinutes < 60)
+      return duration.inMinutes.toString() + " minutes";
+    else if (duration.inHours < 24)
+      return duration.inHours.toString() + " hours";
+    else if (duration.inDays < 30)
+      return duration.inDays.toString() + " days";
+    else
+      return ((duration.inDays ~/ 30).toString() + " month");
   }
 
   Color _setColor() {
@@ -97,16 +106,17 @@ class _RequestState extends State<Request> {
           ListTile(
             leading: SizedBox(
               width: 20.0,
-              height: 42.0,
+              height: 70.0,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: _setColor(),
+                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 ),
               ),
             ),
             title: Text(this.widget.name),
             subtitle: Text(this.widget.location),
-            trailing: Text(_dateDiff() + " minutes ago"),
+            trailing: Text(_dateDiff() + " ago"),
             onLongPress: _showMyDialog,
             onTap: () => Navigator.push(
               context,
@@ -126,6 +136,5 @@ class _RequestState extends State<Request> {
         ],
       ),
     );
-    ;
   }
 }

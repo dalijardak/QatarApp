@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import "./screens/home.dart";
-import 'screens/requestList.dart';
+import 'package:qatar_app/screens/user/userScreen.dart';
+import 'screens/user/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,53 +25,26 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  List<String> appbarText = ["Home", "Requests", "About us"];
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static final List<Widget> _widgetOptions = [
-    Home(),
-    RequestList(),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appbarText[_selectedIndex]),
+        backgroundColor: Colors.orange,
+        title: Text("Hello"),
         centerTitle: true,
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+        child: RaisedButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UserScreen(
+                title: "Home Page",
+                child: HomePage(),
+              ),
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.archive),
-            title: Text('Requests'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Profile'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:qatar_app/elements/resquest.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:qatar_app/screens/requestForm.dart';
+import 'package:qatar_app/screens/user/requestForm.dart';
+import 'package:qatar_app/screens/user/userScreen.dart';
 
 class RequestList extends StatefulWidget {
   @override
@@ -15,6 +16,11 @@ class _RequestListState extends State<RequestList> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(153, 5, 5, 1),
+        title: Text("My Requests"),
+        centerTitle: true,
+      ),
       body: StreamBuilder(
         stream: dbRef.onValue,
         builder: (context, snap) {
@@ -60,7 +66,10 @@ class _RequestListState extends State<RequestList> {
           onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddRequest(),
+                  builder: (context) => UserScreen(
+                    child: AddRequest(),
+                    title: "Add Request",
+                  ),
                 ),
               )),
     );

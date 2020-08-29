@@ -25,6 +25,7 @@ class RequestDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(153, 5, 5, 1),
         title: Text("Details"),
         centerTitle: true,
       ),
@@ -63,7 +64,7 @@ class RequestDetails extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.info),
             title: Text("Date Sent"),
-            subtitle: Text(this.date),
+            subtitle: Text(this.date.substring(0, 16)),
           ),
           ListTile(
             leading: Icon(Icons.description),
