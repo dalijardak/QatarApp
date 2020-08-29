@@ -27,25 +27,9 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange,
-        title: Text("Hello"),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => UserScreen(
-                title: "Home Page",
-                child: HomePage(),
-              ),
-            ),
-          ),
-        ),
-      ),
+    return UserScreen(
+      title: "Home Page",
+      child: HomePage(),
     );
   }
 }
