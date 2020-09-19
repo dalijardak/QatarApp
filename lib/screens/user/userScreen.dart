@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qatar_app/elements/myDrawer.dart';
 import 'package:qatar_app/screens/contact_page.dart';
+import 'package:qatar_app/util/size.dart';
 
 class UserScreen extends StatelessWidget {
   final Widget child;
@@ -14,8 +14,8 @@ class UserScreen extends StatelessWidget {
         backgroundColor: Color.fromRGBO(153, 5, 5, 1),
         title: Text("${this.title}"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
-      drawer: MyDrawer(),
       body: this.child,
       bottomNavigationBar: InkWell(
         child: BottomAppBar(
@@ -24,7 +24,7 @@ class UserScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(2.0),
               color: Color.fromRGBO(153, 5, 5, 1),
             ),
-            height: 75,
+            height: getY(context) * 0.08,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

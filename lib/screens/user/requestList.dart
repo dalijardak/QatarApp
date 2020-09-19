@@ -2,13 +2,13 @@ import "package:flutter/material.dart";
 import 'package:qatar_app/elements/resquest.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:qatar_app/screens/user/requestForm.dart';
-import 'package:qatar_app/screens/user/userScreen.dart';
 
 class RequestList extends StatefulWidget {
   @override
   _RequestListState createState() => _RequestListState();
 }
 
+// ignore: unused_element
 FirebaseDatabase _database = FirebaseDatabase.instance;
 
 class _RequestListState extends State<RequestList> {
@@ -26,12 +26,14 @@ class _RequestListState extends State<RequestList> {
         builder: (context, snap) {
           if (!snap.hasData)
             return Center(
-                child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                    )));
+              child: SizedBox(
+                height: 70,
+                width: 70,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                ),
+              ),
+            );
           else {
             Map data = snap.data.snapshot.value;
             List item = [];
@@ -66,10 +68,7 @@ class _RequestListState extends State<RequestList> {
           onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UserScreen(
-                    child: AddRequest(),
-                    title: "Add Request",
-                  ),
+                  builder: (context) => AddRequest(),
                 ),
               )),
     );

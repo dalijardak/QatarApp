@@ -4,11 +4,13 @@ import 'package:qatar_app/screens/user/customerCare.dart';
 import 'package:qatar_app/screens/user/requestList.dart';
 
 import 'package:qatar_app/screens/user/userScreen.dart';
+import 'package:qatar_app/util/size.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      height: getY(context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -18,12 +20,13 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.only(top: 20),
               child: Image(
                 image: AssetImage("assets/logo.png"),
-                width: 200,
-                height: 200,
+                width: getX(context),
+                height: getY(context) * 0.27,
               ),
             ),
           ),
-          Expanded(
+          Container(
+            height: getY(context) * 0.5,
             child: GridView.count(
               primary: false,
               padding: const EdgeInsets.all(20),
