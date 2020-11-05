@@ -25,12 +25,18 @@ dependencies:
     sdk: flutter
   firebase_core: ^0.5.0
   firebase_database: ^4.0.0
+  firebase_storage: ^4.0.0   
   firebase_auth: "^0.18.0+1"
   email_validator: ^1.0.0
   validators: ^2.0.1
   font_awesome_flutter: ^8.8.1
   url_launcher: ^5.5.1
   progress_state_button: ^1.0.1
+  flutter_icons: ^1.1.0
+  material_design_icons_flutter: ^4.0.5345
+  image_picker: ^0.6.0+17    
+
+
 
 
 

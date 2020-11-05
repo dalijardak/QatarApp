@@ -1,24 +1,24 @@
 import "package:flutter/material.dart";
-import 'package:qatar_app/elements/resquest.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:qatar_app/screens/user/requestForm.dart';
+import 'package:qatar_app/models/suggestion.dart';
+import 'package:qatar_app/view/suggestionView.dart';
 
-class RequestList extends StatefulWidget {
+class SuggestionListView extends StatefulWidget {
   @override
-  _RequestListState createState() => _RequestListState();
+  _SuggestionListViewState createState() => _SuggestionListViewState();
 }
 
 // ignore: unused_element
 FirebaseDatabase _database = FirebaseDatabase.instance;
 
-class _RequestListState extends State<RequestList> {
-  final dbRef = FirebaseDatabase.instance.reference().child("requests");
+class _SuggestionListViewState extends State<SuggestionListView> {
+  final dbRef = FirebaseDatabase.instance.reference().child("suggestions");
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(153, 5, 5, 1),
-        title: Text("My Requests"),
+        title: Text("Suggestions"),
         centerTitle: true,
       ),
       body: StreamBuilder(
@@ -37,9 +37,9 @@ class _RequestListState extends State<RequestList> {
           else {
             Map data = snap.data.snapshot.value;
             List item = [];
-            if (data != null)
+            if (data != null) {
               data.forEach((index, data) => item.add({"key": index, ...data}));
-            else
+            } else
               return Center(
                 child: Text(
                   "The List Is Empty",
@@ -49,28 +49,15 @@ class _RequestListState extends State<RequestList> {
             return ListView.builder(
                 itemCount: item.length,
                 itemBuilder: (context, index) {
-                  return Request(
-                    item[index]["name"].toString(),
-                    item[index]["building"].toString(),
-                    item[index]["location"].toString(),
-                    item[index]["phone"].toString(),
-                    item[index]["email"].toString(),
-                    item[index]["status"].toString(),
-                    item[index]["modified"].toString(),
-                    item[index]["description"].toString(),
+                  return SuggestionView(
+                    suggestion: Suggestion.fromJson(
+                      item[index],
+                    ),
                   );
                 });
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddRequest(),
-                ),
-              )),
     );
   }
 }
