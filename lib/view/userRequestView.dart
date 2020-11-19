@@ -15,7 +15,6 @@ class UserRequestView extends StatefulWidget {
   UserRequestView({
     this.request,
   });
-
   @override
   _UserRequestViewState createState() => _UserRequestViewState();
 }
@@ -64,7 +63,6 @@ class _UserRequestViewState extends State<UserRequestView> {
           color: Colors.green,
           size: 30,
         );
-
         break;
       case "Pending":
         return Icon(
