@@ -1,25 +1,24 @@
-import "package:flutter/material.dart";
+/*import "package:flutter/material.dart";
 
-class RequestDetails extends StatelessWidget {
-  String name;
-  String building;
-  String location;
-  String phone;
-  String email;
-  String status;
-  String date;
-  String description;
-  RequestDetails(String name, String building, String location, String phone,
-      String email, String status, String date, String description) {
-    this.name = name;
-    this.building = building;
-    this.location = location;
-    this.phone = phone;
-    this.email = email;
-    this.status = status;
-    this.date = date;
-    this.description = description;
-  }
+class UserRequestDetails extends StatelessWidget {
+  final String subject;
+  final String building;
+  final String location;
+  final String phone;
+  final String email;
+  final String status;
+  final String date;
+  final String description;
+  UserRequestDetails({
+    this.subject,
+    this.building,
+    this.location,
+    this.phone,
+    this.email,
+    this.status,
+    this.date,
+    this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class RequestDetails extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: Text("Name"),
-            subtitle: Text(this.name),
+            subtitle: Text(this.subject),
           ),
           ListTile(
             leading: Icon(Icons.home),
@@ -76,3 +75,4 @@ class RequestDetails extends StatelessWidget {
     );
   }
 }
+*/

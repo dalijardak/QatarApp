@@ -1,33 +1,32 @@
-import "package:flutter/material.dart";
+/*import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:qatar_app/elements/requestDetails.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
-class Request extends StatefulWidget {
-  String name;
-  String building;
-  String location;
-  String phone;
-  String email;
-  String status;
-  String date;
-  String description;
-  Request(String name, String building, String location, String phone,
-      String email, String status, String date, String description) {
-    this.name = name;
-    this.building = building;
-    this.location = location;
-    this.phone = phone;
-    this.email = email;
-    this.status = status;
-    this.date = date;
-    this.description = description;
-  }
-
+class RequestView extends StatefulWidget {
+  final String name;
+  final String building;
+  final String location;
+  final String phone;
+  final String email;
+  final String status;
+  final String date;
+  final String description;
+  RequestView({
+    this.name,
+    this.building,
+    this.location,
+    this.phone,
+    this.email,
+    this.status,
+    this.date,
+    this.description,
+  });
   @override
-  _RequestState createState() => _RequestState();
+  _RequestViewState createState() => _RequestViewState();
 }
 
-class _RequestState extends State<Request> {
+class _RequestViewState extends State<RequestView> {
   _dateDiff() {
     var dateNow = new DateTime.now();
     var dateThen = DateTime.parse(this.widget.date);
@@ -44,11 +43,30 @@ class _RequestState extends State<Request> {
       return ((duration.inDays ~/ 30).toString() + " month");
   }
 
-  Color _setColor() {
-    if (this.widget.status == "Finished")
-      return Colors.green;
-    else
-      return Colors.yellow;
+  Icon _setIcon() {
+    switch (this.widget.status) {
+      case "Finished":
+        return Icon(
+          Icons.check_circle,
+          color: Colors.green,
+          size: 30,
+        );
+        break;
+      case "In Progress":
+        return Icon(
+          MaterialCommunityIcons.dots_horizontal_circle,
+          color: Colors.orange,
+          size: 30,
+        );
+        break;
+      case "Pending":
+        return Icon(
+          MaterialCommunityIcons.dots_horizontal_circle,
+          color: Colors.yellow,
+          size: 30,
+        );
+        break;
+    }
   }
 
   _deleteRequest() {
@@ -104,16 +122,7 @@ class _RequestState extends State<Request> {
       child: Column(
         children: <Widget>[
           ListTile(
-            leading: SizedBox(
-              width: 20.0,
-              height: 70.0,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: _setColor(),
-                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                ),
-              ),
-            ),
+            leading: _setIcon(),
             title: Text(this.widget.name),
             subtitle: Text(this.widget.location),
             trailing: Text(_dateDiff() + " ago"),
@@ -122,14 +131,14 @@ class _RequestState extends State<Request> {
               context,
               MaterialPageRoute(
                 builder: (context) => RequestDetails(
-                    this.widget.name,
-                    this.widget.building,
-                    this.widget.location,
-                    this.widget.phone,
-                    this.widget.email,
-                    this.widget.status,
-                    this.widget.date,
-                    this.widget.description),
+                    name: this.widget.name,
+                    building: this.widget.building,
+                    location: this.widget.location,
+                    phone: this.widget.phone,
+                    email: this.widget.email,
+                    status: this.widget.status,
+                    date: this.widget.date,
+                    description: this.widget.description),
               ),
             ),
           ),
@@ -137,4 +146,29 @@ class _RequestState extends State<Request> {
       ),
     );
   }
-}
+}*/
+
+/* clientInfos().then((value) {
+        setState(() {
+          isLoading = false;
+        });
+        if (value == null)
+          _scaffoldKey.currentState.showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "An Error Has Occurred",
+                    style: TextStyle(color: Colors.red, fontSize: 18),
+                  ),
+                  Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  )
+                ],
+              ),
+              backgroundColor: Colors.black,
+            ),
+          );
+      });*/

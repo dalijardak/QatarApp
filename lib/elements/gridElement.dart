@@ -15,7 +15,7 @@ class GridElement extends StatelessWidget {
         height: 100,
         width: 80,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(199, 201, 201, 1),
+          color: Color.fromRGBO(215, 219, 224, 1),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
