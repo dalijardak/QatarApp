@@ -253,11 +253,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "0.12.10-nullsafety.1"
-=======
-    version: "0.12.8"
->>>>>>> fa4be4aa34dc8fda52910bf83ca7e9bbcd96603b
   material_design_icons_flutter:
     dependency: "direct main"
     description:
