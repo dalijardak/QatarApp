@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:qatar_app/elements/rating.dart';
+import 'package:qatar_app/models/feedback.dart';
 import 'package:qatar_app/models/request.dart';
 import 'package:qatar_app/screens/user/userRequestDetails.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -11,8 +10,10 @@ import 'package:qatar_app/services/authentification.dart';
 import 'package:qatar_app/services/userServices.dart';
 
 class UserRequestView extends StatefulWidget {
+  final String requestId;
   final Request request;
   UserRequestView({
+    this.requestId,
     this.request,
   });
   @override
@@ -31,6 +32,7 @@ class _UserRequestViewState extends State<UserRequestView> {
         .child("requests")
         .onChildChanged
         .first;
+    WidgetsBinding.instance.addPostFrameCallback((_) => _isFinished());
   }
 
   @override
@@ -74,7 +76,7 @@ class _UserRequestViewState extends State<UserRequestView> {
       case "In Progress":
         return Icon(
           MaterialCommunityIcons.progress_clock,
-          color: Colors.yellow,
+          color: Color(0xffFFD700),
           size: 30,
         );
         break;
@@ -82,169 +84,222 @@ class _UserRequestViewState extends State<UserRequestView> {
   }
 
   int feedBackRating = 5;
-  bool isLoading = false;
+  TextEditingController description = new TextEditingController(text: "");
+  bool done = false;
   List<bool> isSelected = [false, false, false, false, false];
   _onTap(int index) {
     setState(() {
+      feedBackRating = index + 1;
       for (var i = 0; i <= index; i++) isSelected[i] = true;
       for (var i = index + 1; i < 5; i++) isSelected[i] = false;
     });
   }
 
   void _isFinished() {
-    if (this.widget.request.status == "Pending") {
+    if (this.widget.request.status == "Finished" &&
+        this.widget.request.feedbackRating == 0) {
       showDialog(
-        barrierDismissible: false,
+        barrierDismissible: true,
         context: context,
+        useSafeArea: true,
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
-            return AlertDialog(
-              title: Text(
-                'Your maintainence request is finished !',
-                textAlign: TextAlign.center,
-              ),
-              content: Container(
-                height: 250,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'Rate our service',
-                      textAlign: TextAlign.start,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: IconButton(
-                              icon: isSelected[0]
-                                  ? Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                    )
-                                  : Icon(
-                                      Icons.star_border,
-                                      color: Colors.grey,
-                                    ),
-                              onPressed: () {
-                                setState(() {
-                                  _onTap(0);
-                                });
-                              }),
-                        ),
-                        Expanded(
-                          child: IconButton(
-                            icon: isSelected[1]
-                                ? Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  )
-                                : Icon(
-                                    Icons.star_border,
-                                    color: Colors.grey,
-                                  ),
-                            onPressed: () {
-                              setState(() {
-                                _onTap(1);
-                              });
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: IconButton(
-                            icon: isSelected[2]
-                                ? Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  )
-                                : Icon(
-                                    Icons.star_border,
-                                    color: Colors.grey,
-                                  ),
-                            onPressed: () {
-                              setState(() {
-                                _onTap(2);
-                              });
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: IconButton(
-                            icon: isSelected[3]
-                                ? Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  )
-                                : Icon(
-                                    Icons.star_border,
-                                    color: Colors.grey,
-                                  ),
-                            onPressed: () {
-                              setState(() {
-                                _onTap(3);
-                              });
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: IconButton(
-                            icon: isSelected[4]
-                                ? Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  )
-                                : Icon(
-                                    Icons.star_border,
-                                    color: Colors.grey,
-                                  ),
-                            onPressed: () {
-                              setState(() {
-                                _onTap(4);
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    isSelected[2]
-                        ? SizedBox()
-                        : Container(
-                            child: Column(
+            return done
+                ? AlertDialog(
+                    content: Text("Thank you for your support"),
+                  )
+                : WillPopScope(
+                    onWillPop: () async => false,
+                    child: AlertDialog(
+                      title: Text(
+                        'Your maintainence request \"${this.widget.request.subject}\" is finished !',
+                        textAlign: TextAlign.center,
+                      ),
+                      content: Container(
+                        height: 250,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Rate our service',
+                              textAlign: TextAlign.start,
+                            ),
+                            Row(
                               children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                      "If you have encounterd any issue please let us know"),
+                                Expanded(
+                                  child: IconButton(
+                                      icon: isSelected[0]
+                                          ? Icon(
+                                              Icons.star,
+                                              color: Color(0xffFFD700),
+                                            )
+                                          : Icon(
+                                              Icons.star_border,
+                                              color: Colors.grey,
+                                            ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _onTap(0);
+                                        });
+                                      }),
                                 ),
-                                TextField(),
+                                Expanded(
+                                  child: IconButton(
+                                    icon: isSelected[1]
+                                        ? Icon(
+                                            Icons.star,
+                                            color: Color(0xffFFD700),
+                                          )
+                                        : Icon(
+                                            Icons.star_border,
+                                            color: Colors.grey,
+                                          ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _onTap(1);
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    icon: isSelected[2]
+                                        ? Icon(
+                                            Icons.star,
+                                            color: Color(0xffFFD700),
+                                          )
+                                        : Icon(
+                                            Icons.star_border,
+                                            color: Colors.grey,
+                                          ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _onTap(2);
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    icon: isSelected[3]
+                                        ? Icon(
+                                            Icons.star,
+                                            color: Color(0xffFFD700),
+                                          )
+                                        : Icon(
+                                            Icons.star_border,
+                                            color: Colors.grey,
+                                          ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _onTap(3);
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    icon: isSelected[4]
+                                        ? Icon(
+                                            Icons.star,
+                                            color: Color(0xffFFD700),
+                                          )
+                                        : Icon(
+                                            Icons.star_border,
+                                            color: Colors.grey,
+                                          ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _onTap(4);
+                                      });
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
-                          ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          FlatButton(
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(color: Colors.blueAccent),
+                            Container(
+                              child: Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                        "If you have encounterd any issue please let us know"),
+                                  ),
+                                  TextField(
+                                    controller: description,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      labelStyle: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      enabledBorder: new OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(15.0),
+                                        borderSide: new BorderSide(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      focusedBorder: new OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(15.0),
+                                        borderSide: new BorderSide(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    maxLines: 2,
+                                  ),
+                                ],
+                              ),
                             ),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                          FlatButton(
-                            child: Text(
-                              'Submit',
-                              style: TextStyle(color: Colors.blueAccent),
-                            ),
-                            onPressed: () {},
-                          ),
-                        ],
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  /*FlatButton(
+                                    child: Text(
+                                      'Cancel',
+                                      style:
+                                          TextStyle(color: Colors.blueAccent),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),*/
+                                  FlatButton(
+                                    child: Text(
+                                      'Submit',
+                                      style:
+                                          TextStyle(color: Colors.blueAccent),
+                                    ),
+                                    onPressed: () {
+                                      sendFeedback(
+                                        feedBack: new FeedBack(
+                                          requestId: this.widget.requestId,
+                                          clientName: Auth()
+                                              .auth
+                                              .currentUser
+                                              .displayName,
+                                          rating: feedBackRating,
+                                          description: description.text,
+                                          clientId: Auth().auth.currentUser.uid,
+                                          requestSubject:
+                                              this.widget.request.subject,
+                                        ),
+                                      ).whenComplete(() {
+                                        setState(() {
+                                          done = true;
+                                        });
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-            );
+                    ),
+                  );
           });
         },
       );

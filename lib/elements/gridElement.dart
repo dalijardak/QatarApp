@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:qatar_app/util/size.dart';
 
 class GridElement extends StatelessWidget {
   final IconData icon;
@@ -12,8 +13,8 @@ class GridElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        height: 100,
-        width: 80,
+        height: getY(context) * 0.07,
+        width: getX(context) * 0.07,
         decoration: BoxDecoration(
           color: Color.fromRGBO(215, 219, 224, 1),
           borderRadius: BorderRadius.circular(12),

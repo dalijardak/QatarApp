@@ -1,8 +1,8 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:qatar_app/models/request.dart';
 import 'package:qatar_app/screens/admin/requestDetails.dart';
+import 'package:qatar_app/services/adminServices.dart';
 
 class RequestView extends StatefulWidget {
   final Request request;
@@ -56,25 +56,6 @@ class _RequestViewState extends State<RequestView> {
     }
   }
 
-  _deleteRequest() {
-    FirebaseDatabase.instance
-        .reference()
-        .child("requests")
-        .orderByChild("name")
-        .equalTo(this.widget.request.subject)
-        .onChildAdded
-        .listen((Event event) {
-      FirebaseDatabase.instance
-          .reference()
-          .child('requests')
-          .child(event.snapshot.key)
-          .remove();
-    }, onError: (Object o) {
-      final DatabaseError error = o;
-      print('Error: ${error.code} ${error.message}');
-    });
-  }
-
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -93,7 +74,11 @@ class _RequestViewState extends State<RequestView> {
             FlatButton(
               child: Text('Yes'),
               onPressed: () {
-                _deleteRequest();
+                deleteRequest(
+                  clientId: this.widget.request.clientId,
+                  requestId: this.widget.requestId,
+                  requestImgPath: this.widget.request.imgPath,
+                ).then((value) => print(value));
                 Navigator.of(context).pop();
               },
             ),

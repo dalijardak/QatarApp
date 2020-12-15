@@ -25,12 +25,13 @@ class _LoginPageState extends State<LoginPage> {
         (value) {
           if (value == "ok") {
             Auth().checkAdmin().then((value) {
-              if (value == null)
-                Navigator.pushNamed(context, "/User");
-              else {
-                print(value);
+              print(value);
+              if (value == "superAdmin")
+                Navigator.pushNamed(context, "/SuperAdmin");
+              else if (value == "admin")
                 Navigator.pushNamed(context, "/Admin");
-              }
+              else
+                Navigator.pushNamed(context, "/User");
             });
           } else if (value == "No user found for that email" ||
               value == "Wrong password provided for that user") {

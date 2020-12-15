@@ -3,8 +3,10 @@ import 'package:qatar_app/models/request.dart';
 import 'package:qatar_app/util/size.dart';
 
 class UserRequestDetails extends StatefulWidget {
+  final String requestId;
   final Request request;
   UserRequestDetails({
+    this.requestId,
     this.request,
   });
   @override

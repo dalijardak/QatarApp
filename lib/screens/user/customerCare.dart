@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qatar_app/elements/gridElement.dart';
-import 'package:qatar_app/elements/rating.dart';
 import 'package:qatar_app/screens/user/requestForm.dart';
-import 'package:qatar_app/screens/user/reviewScreen.dart';
 import 'package:qatar_app/util/size.dart';
 
 import '../contact_page.dart';

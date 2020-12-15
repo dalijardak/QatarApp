@@ -2,15 +2,15 @@ import "package:flutter/material.dart";
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qatar_app/elements/gridElement.dart';
-import 'package:qatar_app/screens/admin/adminRequestsList.dart';
 import 'package:qatar_app/screens/admin/feedbackListPage.dart';
 import 'package:qatar_app/screens/admin/requestListPage.dart';
 import 'package:qatar_app/screens/admin/suggestionListPage.dart';
+import 'package:qatar_app/screens/superAdmin/createAccount.dart';
 import 'package:qatar_app/services/authentification.dart';
 
 import 'package:qatar_app/util/size.dart';
 
-class AdminScreen extends StatelessWidget {
+class SuperAdminScreen extends StatelessWidget {
   Future<void> _showMyDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
@@ -80,7 +80,7 @@ class AdminScreen extends StatelessWidget {
                 height: getY(context) * 0.55,
                 child: GridView.count(
                   primary: false,
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(30),
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
@@ -96,6 +96,16 @@ class AdminScreen extends StatelessWidget {
                       ),
                     ),
                     GridElement(
+                      title: "Create Account ",
+                      icon: Icons.account_box,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreateAccount(),
+                        ),
+                      ),
+                    ),
+                    GridElement(
                       title: " Suggestions ",
                       icon: MaterialCommunityIcons.lightbulb_on,
                       onTap: () => Navigator.push(
@@ -106,17 +116,7 @@ class AdminScreen extends StatelessWidget {
                       ),
                     ),
                     GridElement(
-                      title: "Request",
-                      icon: Icons.add_comment,
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AdminRequestListView(),
-                        ),
-                      ),
-                    ),
-                    GridElement(
-                      title: "Feedbacks",
+                      title: "Feedbacks ",
                       icon: Icons.feedback_rounded,
                       onTap: () => Navigator.push(
                         context,

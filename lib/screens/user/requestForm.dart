@@ -21,6 +21,7 @@ class _AddRequestState extends State<AddRequest> {
   bool isLoading = false;
   File _image;
   String imgUrl = "no image";
+  String imgPath = "N/A";
 
   //to pick and Image
   final picker = ImagePicker();
@@ -73,6 +74,11 @@ class _AddRequestState extends State<AddRequest> {
           imgUrl = fileURL;
         });
       });
+      await storageReference.getName().then((value) {
+        setState(() {
+          imgPath = value;
+        });
+      });
     }
   }
 
@@ -119,6 +125,9 @@ class _AddRequestState extends State<AddRequest> {
                 status: "Pending",
                 date: now.toString(),
                 imgUrl: imgUrl,
+                imgPath: imgPath,
+                feedbackRating: 0,
+                feedbackDescription: "",
               ),
             ).then((value) {
               setState(() {

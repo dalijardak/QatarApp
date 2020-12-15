@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:qatar_app/elements/rating.dart';
 import 'package:qatar_app/models/request.dart';
 import 'package:qatar_app/services/adminServices.dart';
 import 'package:qatar_app/util/size.dart';
@@ -246,22 +245,6 @@ class _RequestDetailsState extends State<RequestDetails> {
                 child: Text("Change"),
                 onPressed: () => _showMyDialog(context),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.star_rate, color: Colors.red),
-              title: Text("Rating"),
-              subtitle: Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  width: getX(context) * 0.5,
-                  child: Rating(rating: this.widget.request.feedbackRating - 1),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.feedback, color: Colors.red),
-              title: Text("Feedback"),
-              subtitle: Text(this.widget.request.feedbackDescription),
             ),
           ],
         ).toList(),

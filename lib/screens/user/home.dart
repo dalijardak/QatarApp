@@ -61,18 +61,20 @@ class HomePage extends StatelessWidget {
           ],
         ),
         body: Container(
-          height: getY(context),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Container(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Image(
-                    image: AssetImage("assets/logo.png"),
-                    width: getX(context),
-                    height: getY(context) * 0.27,
+              Expanded(
+                child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Image(
+                      image: AssetImage("assets/logo.png"),
+                      width: getX(context),
+                      height: getY(context) * 0.27,
+                    ),
                   ),
                 ),
               ),

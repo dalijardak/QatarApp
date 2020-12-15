@@ -5,12 +5,12 @@ import 'package:qatar_app/screens/authPage.dart';
 import 'package:qatar_app/screens/contact_page.dart';
 import 'package:qatar_app/screens/login_page.dart';
 import 'package:qatar_app/screens/registration_page.dart';
+import 'package:qatar_app/screens/superAdmin/superAdminHome.dart';
 import 'package:qatar_app/screens/user/customerCare.dart';
 import 'package:qatar_app/screens/user/profile.dart';
 import 'package:qatar_app/screens/user/requestForm.dart';
 import 'package:qatar_app/screens/user/suggestionFormPage.dart';
 import 'package:qatar_app/screens/user/userScreen.dart';
-import 'package:qatar_app/screens/welcome.dart';
 import 'screens/user/home.dart';
 
 Future<void> main() async {
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/Registration': (context) => RegistrationPage(),
         '/Login': (context) => LoginPage(),
         '/User': (context) => HomePage(),
+        '/SuperAdmin': (context) => SuperAdminScreen(),
         '/SuggestionPage': (context) => SuggestionPage(),
         '/Customer_Care': (context) => CustomerCare(),
         '/Profile': (context) => ProfilePage(),

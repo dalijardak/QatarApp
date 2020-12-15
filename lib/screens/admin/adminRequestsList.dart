@@ -1,23 +1,22 @@
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 import 'package:qatar_app/models/request.dart';
-import 'package:qatar_app/screens/user/requestForm.dart';
-
+import 'package:qatar_app/screens/admin/requestForm.dart';
+import 'package:qatar_app/screens/admin/requestView.dart';
 import 'package:qatar_app/services/authentification.dart';
-import 'package:qatar_app/view/userRequestView.dart';
 
-class UserRequestListView extends StatefulWidget {
+class AdminRequestListView extends StatefulWidget {
   @override
-  _UserRequestListViewState createState() => _UserRequestListViewState();
+  _AdminRequestListViewState createState() => _AdminRequestListViewState();
 }
 
 // ignore: unused_element
 FirebaseDatabase _database = FirebaseDatabase.instance;
 
-class _UserRequestListViewState extends State<UserRequestListView> {
+class _AdminRequestListViewState extends State<AdminRequestListView> {
   final dbRef = FirebaseDatabase.instance
       .reference()
-      .child("users")
+      .child("admins")
       .child(Auth().auth.currentUser.uid)
       .child("requests");
 
@@ -57,7 +56,7 @@ class _UserRequestListViewState extends State<UserRequestListView> {
             return ListView.builder(
                 itemCount: item.length,
                 itemBuilder: (context, index) {
-                  return UserRequestView(
+                  return RequestView(
                     requestId: item[index]["key"],
                     request: Request.fromJson(item[index]),
                   );
@@ -66,12 +65,12 @@ class _UserRequestListViewState extends State<UserRequestListView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.redAccent,
         child: Icon(Icons.add),
+        backgroundColor: Colors.redAccent,
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AddRequest(),
+            builder: (context) => AddRequestAdmin(),
           ),
         ),
       ),

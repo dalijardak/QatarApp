@@ -13,7 +13,10 @@ class Request {
   final String date;
   final String description;
   final String imgUrl;
+  final String imgPath;
   final String clientId;
+  final int feedbackRating;
+  final String feedbackDescription;
   Request({
     this.id,
     this.subject,
@@ -27,7 +30,10 @@ class Request {
     this.date,
     this.description,
     this.imgUrl,
+    this.imgPath,
     this.clientId,
+    this.feedbackRating,
+    this.feedbackDescription,
   });
 
   factory Request.fromJson(Map<dynamic, dynamic> json) {
@@ -44,7 +50,10 @@ class Request {
       date: json["date"] as String,
       description: json["description"] as String,
       imgUrl: json["imgUrl"] as String,
+      imgPath: json["imgPath"] as String,
       clientId: json["clientId"] as String,
+      feedbackRating: json["feedbackRating"] as int,
+      feedbackDescription: json["feedbackDescription"] as String,
     );
   }
 
@@ -61,6 +70,9 @@ class Request {
         "status": status,
         "clientId": Auth().auth.currentUser.uid,
         "imgUrl": imgUrl,
+        "imgPath": imgPath,
+        "feedbackRating": feedbackRating,
+        "feedbackDescription": feedbackDescription,
       };
 
   Map<String, dynamic> myRequesttoJson() => {
@@ -69,5 +81,6 @@ class Request {
         "description": description,
         "status": status,
         "imgUrl": imgUrl,
+        "feedbackRating": feedbackRating,
       };
 }

@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:qatar_app/models/admin.dart';
 import 'package:qatar_app/models/client.dart';
 
 class Auth {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   final dbRef = FirebaseDatabase.instance.reference().child("users");
+  final admindbRef = FirebaseDatabase.instance.reference().child("admins");
 
   Future<String> signUp(Client client) async {
     // Created a second instance so it doesnt duplicate with current Auth
@@ -27,6 +29,40 @@ class Auth {
       await FirebaseAuth.instanceFor(app: app)
           .currentUser
           .updateProfile(displayName: client.fullName);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+        result = "The password provided is too weak";
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        result = "The account already exists for that email";
+      } else
+        result = "Network error has occured";
+    }
+    await app.delete();
+
+    return result;
+  }
+
+  Future<String> adminSignUp(Admin admin) async {
+    // Created a second instance so it doesnt duplicate with current Auth
+    FirebaseApp app = await Firebase.initializeApp(
+        name: 'Secondary', options: Firebase.app().options);
+
+    String result = "";
+
+    try {
+      await FirebaseAuth.instanceFor(app: app)
+          .createUserWithEmailAndPassword(
+              email: admin.email, password: admin.password)
+          .then((value) {
+        admindbRef.child(value.user.uid).set(admin.toJson());
+        value.user.updateProfile(displayName: admin.fullName);
+        result = "Success";
+      });
+      await FirebaseAuth.instanceFor(app: app)
+          .currentUser
+          .updateProfile(displayName: admin.fullName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -70,7 +106,16 @@ class Auth {
         .child("admins")
         .child(Auth().auth.currentUser.uid)
         .once());
-    return adminInfo.value;
+    final superAdminInfo = (await FirebaseDatabase.instance
+        .reference()
+        .child("superAdmins")
+        .child(Auth().auth.currentUser.uid)
+        .once());
+    if (superAdminInfo.value != null)
+      return "superAdmin";
+    else if (adminInfo.value != null) return "admin";
+
+    return "user";
   }
 
   Future<void> userInfo() {

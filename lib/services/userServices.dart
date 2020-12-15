@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:qatar_app/models/client.dart';
+import 'package:qatar_app/models/feedback.dart';
 import 'package:qatar_app/models/request.dart';
 import 'package:qatar_app/models/suggestion.dart';
 import 'package:qatar_app/services/authentification.dart';
@@ -83,6 +84,27 @@ Future<String> checkRequest() async {
       .listen((event) {});
 
   return result;
+}
+
+Future<void> sendFeedback({
+  FeedBack feedBack,
+}) async {
+  final ref = FirebaseDatabase.instance.reference();
+  ref
+      .child("requests/${feedBack.requestId}/feedbackRating")
+      .set(feedBack.rating);
+  ref
+      .child("requests/${feedBack.requestId}/feedbackDescription")
+      .set(feedBack.description);
+  String feedbackId = ref.child("feedbacks").push().key;
+  ref.child("feedbacks").child(feedbackId).set(feedBack.toJson());
+  ref
+      .child("users")
+      .child(Auth().auth.currentUser.uid)
+      .child("requests")
+      .child(feedBack.requestId)
+      .child("feedbackRating")
+      .set(feedBack.rating);
 }
 
 //To do
