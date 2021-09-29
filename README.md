@@ -15,4 +15,4 @@ This project is a mobile application that containts two types of users:
  
  Super Admin is like and Admin but he has the ability to control admins accounts.
  
-![Welcome Screen](https://github.com/dalijardak/Lenus/blob/master/screens/image_large.jpeg)
+![Welcome Screen](https://vimeo.com/manage/videos/490467430)
