@@ -15,4 +15,4 @@ This project is a mobile application that containts two types of users:
  
  Super Admin is like and Admin but he has the ability to control admins accounts.
  
-![Watch the video](https://im3.ezgif.com/tmp/ezgif-3-2e912d046ed3.gif)
+[![Watch the video](https://github.com/dalijardak/Real-Estate-Agency/blob/master/demo.jfif)](https://vimeo.com/490467430)
