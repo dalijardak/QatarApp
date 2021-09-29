@@ -15,4 +15,36 @@ This project is a mobile application that containts two types of users:
  
  Super Admin is like and Admin but he has the ability to control admins accounts.
  
-[![Watch the video](https://github.com/dalijardak/Real-Estate-Agency/blob/master/demo.jfif =480x680)](https://vimeo.com/490467430)
+ ## Demo
+[![Watch the video](https://github.com/dalijardak/Real-Estate-Agency/blob/master/demo.jfif)](https://vimeo.com/490467430)
+
+## Screens
+
+### Welcome Page
+![Welcome](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/welcome_page.jpeg)
+
+### Login Screen
+![Login](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/login_screen.jpeg)
+
+### Customer Screen
+![Customer](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/customer_screen.jpeg)
+
+### Customer Requests
+![Customer Requests](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/user_requests.jpeg)
+
+### Admin Screen
+![Admin Screen](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/admin_screen.jpeg)
+
+### Requests Details 
+![Requests Details ](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/request_details1.jpeg)
+
+### Requests Details 
+![Requests Details](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/request_details2.jpeg)
+
+### Requests Details
+![Requests Details](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/request_details1.jpeg)
+
+### Feedbacks
+![Feedbacks](https://github.com/dalijardak/Real-Estate-Agency/blob/master/screens/feedback.jpeg)
+
+# Thank you for taking a look on my project ! :grinning: 
