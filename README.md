@@ -1,16 +1,18 @@
-# qatar_app
+# Ibn Ajyen Project
 
-A new Flutter project.
+Ibn Ajyen Real Estate Projects is a real estate agency located in Qatar.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project is a mobile application that containts two types of users:
+  - Customer
+  - Admin
+  - Super Admin
+ 
+ The customer can use the app in order to make reclamations about problems he encountered in the building to the real estate agency 
+ by typing his informations and providing images if he wants. He can also rate the customer service and send suggestions.
+ 
+ The admin can view all the reclamations and suggestions the cutomers sent and modify its status (In Prgoress/Holding/Finished)
+ Admins can also create reclamations with other customers infos.
+ 
+ Super Admin is like and Admin but he has the ability to control admins accounts.
+ 
+![Welcome Screen](https://github.com/dalijardak/Lenus/blob/master/screens/image_large.jpeg)
